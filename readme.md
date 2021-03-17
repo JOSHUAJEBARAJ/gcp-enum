@@ -8,9 +8,11 @@ GCP enum is the tool that helps to find the existence of the GCP buckets. This m
 
 ### Installation
 
-If you want to  build manually Clone the repo and install it using **go install**
+- Install the Golang then :
 
-or You can download the premade-binary and put it in your PATH
+```
+go get github.com/JOSHUAJEBARAJ/gcp-enum
+```
 
 ### Usage
 
@@ -38,8 +40,8 @@ By default, this tool will create the 3 concurrent processes To increase the con
 $ gcp-enum -k netflix -file wordlist -c 10
 ```
 
-
+The above command will create 10 concurrent process
 ### Why GCP enum
 
-- Its  faster than **GCPBucketBrute** 
-- It has pre-made binary ,So no need to install the tools and dependencies
+- Its somewhat faster than **GCPBucketBrute** 
+- Because I want to learn GO
