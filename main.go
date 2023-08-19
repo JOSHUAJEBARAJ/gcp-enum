@@ -7,11 +7,13 @@ import (
 	"net/http"
 	"os"
 	"sync"
-	"time"
 )
 
 const (
 	GCP_URL = "https://www.googleapis.com/storage/v1/b/"
+	green   = "\033[32m" // Green color
+	red     = "\033[31m" // Red color
+	reset   = "\033[0m"  // Reset color
 )
 
 func getwords(filename string) []string {
@@ -34,7 +36,7 @@ func getwords(filename string) []string {
 
 }
 func main() {
-	start := time.Now()
+
 	jobs := make(chan string, 100)
 
 	key := flag.String("k", "", "keyword that you want to enumerate")
@@ -49,16 +51,15 @@ func main() {
 	}
 
 	// function to get the words from the file
-	fmt.Println(time.Since(start))
+	//fmt.Println(time.Since(start))
 
 	wordlist := getwords(*filename)
-	fmt.Println(time.Since(start))
+	//fmt.Println(time.Since(start))
 
 	// function to generate the worldlist using the file key and words from the file
 	endpoints := mutate(*key, wordlist)
-	fmt.Println(time.Since(start))
+	// fmt.Println(time.Since(start))
 
-	fmt.Println(len(endpoints))
 	//fmt.Println(len(endpoints))
 	//  go routine
 
@@ -89,10 +90,10 @@ func enumerate(jobs chan string, wg *sync.WaitGroup) {
 		}
 
 		if res.StatusCode != (400) && res.StatusCode != (404) {
-			fmt.Println("Valid:", job)
+			fmt.Println(green + "Valid:" + job + reset)
 
 		} else {
-			fmt.Println("Invalid", job)
+			fmt.Println(red + "Invalid:" + job + reset)
 		}
 
 	}
